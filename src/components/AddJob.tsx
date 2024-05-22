@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, { useState } from 'react'
 interface Employee {
   id: number;
   name: string;
@@ -8,7 +7,7 @@ interface Employee {
   address: string;
 }
 
-const AddJob: React.FC = () => {
+export default function AddJob() {
   const [name, setName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [email, setEmail] = useState('');
@@ -84,10 +83,9 @@ const AddJob: React.FC = () => {
   const closeForm = () => {
     setFormVisible(false);
   };
-
   return (
     <>
-      <header className="d-flex justify-content-between mb-3">
+    <header className="d-flex justify-content-between mb-3">
         <h3>Nhân viên</h3>
         <button onClick={openForm} className="btn btn-primary">Thêm mới nhân viên</button>
       </header>
@@ -157,7 +155,5 @@ const AddJob: React.FC = () => {
         </div>
       )}
     </>
-  );
-};
-
-export default AddJob;
+  )
+}

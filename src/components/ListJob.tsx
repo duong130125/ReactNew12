@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react'
 interface Employee {
   id: number;
   name: string;
@@ -9,7 +8,7 @@ interface Employee {
   status: string;
 }
 
-const ListJob: React.FC = () => {
+export default function ListJob() {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
   const [showBlockModal, setShowBlockModal] = useState(false);
@@ -23,7 +22,6 @@ const ListJob: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Lấy dữ liệu từ localStorage
     const storedEmployees = JSON.parse(localStorage.getItem('employees') || '[]');
     setEmployees(storedEmployees);
   }, []);
@@ -61,14 +59,12 @@ const ListJob: React.FC = () => {
       return;
     }
 
-    // Kiểm tra định dạng Email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(editedEmail)) {
       setError('Email không hợp lệ');
       return;
     }
 
-    // Kiểm tra ngày sinh không lớn hơn ngày hiện tại
     const currentDate = new Date();
     const selectedDate = new Date(editedDateOfBirth);
     if (selectedDate > currentDate) {
@@ -76,7 +72,6 @@ const ListJob: React.FC = () => {
       return;
     }
 
-    // Cập nhật thông tin nhân viên
     const updatedEmployees = employees.map((emp) => 
       emp.id === editedEmployee!.id 
         ? { ...emp, name: editedName, email: editedEmail, dateOfBirth: editedDateOfBirth, address: editedAddress } 
@@ -96,7 +91,6 @@ const ListJob: React.FC = () => {
     setEditedEmployee(null);
     setError(null);
   };
-
   return (
     <>
      <table className="table table-bordered table-hover table-striped">
@@ -241,7 +235,6 @@ const ListJob: React.FC = () => {
   </div>
 )}
     </>
-  );
+  )
 }
 
-export default ListJob;
