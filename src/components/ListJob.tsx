@@ -46,11 +46,27 @@ export default function ListJob() {
   };
 
   const confirmBlockUnblock = () => {
-    // Code xác nhận chặn hoặc bỏ chặn
+    if (selectedEmployee) {
+      const updatedEmployees = employees.map((emp) => 
+        emp.id === selectedEmployee.id 
+          ? { ...emp, status: emp.status === 'active' ? 'stop' : 'active' } 
+          : emp
+      );
+      setEmployees(updatedEmployees);
+      localStorage.setItem('employees', JSON.stringify(updatedEmployees));
+      setShowBlockModal(false);
+      setSelectedEmployee(null);
+    }
   };
 
   const confirmDelete = () => {
-    // Code xác nhận xóa
+    if (selectedEmployee) {
+      const updatedEmployees = employees.filter(emp => emp.id !== selectedEmployee.id);
+      setEmployees(updatedEmployees);
+      localStorage.setItem('employees', JSON.stringify(updatedEmployees));
+      setShowDeleteModal(false);
+      setSelectedEmployee(null);
+    }
   };
 
   const confirmEdit = () => {
@@ -227,7 +243,7 @@ export default function ListJob() {
         />
       </div>
       <div>
-        <button className="w-100 btn btn-primary" type="submit">
+        <button className="w-100 btn btn-primary" onClick={confirmEdit} type="submit">
           Lưu
         </button>
       </div>
